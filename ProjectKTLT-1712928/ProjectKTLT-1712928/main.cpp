@@ -1,82 +1,94 @@
 ﻿#include <stdio.h>
 #include <string.h>
-
+#include <iostream>
+#include <wchar.h>
 struct SinhVien
 {
+	wchar_t email[30];
 	wchar_t HoTen[30];
 	char MSSV[10];
-	wchar_t Khoa[30];
+	wchar_t	Khoa[30];
 	int NamHoc;
-	char NgaySinh;
-	char Anh;
+	char NgaySinh[10]; //	dd/mm/yyyy (10 char)
+	char Anh[14];	//	(mssv).img	(14 char)
 	wchar_t BanThan[1000];
 	wchar_t SoThich[1000];
 };
 typedef SinhVien SV;
 
-int readSV()
+int readSV(int &flagVitri)
 {
 	SV SV;
 	FILE *FileSV;
-
-
-	char *buf = new char[256];
-	char *tmp;
-	if ((FileSV = fopen("Test.csv", "r")) == NULL) //Đọc file
+	FileSV = _wfopen(L"ThongTin.csv", L"w,ccs=UTF-16LE");
+	wchar_t bufwchar;
+	char bufchar;
+	if (!FileSV) // check file
 	{
 		printf("File could not be opened.\n");
+		system("pause");
+		return 0;
 	}
-	int i = 0;
-	int j = 0;
-	int flag = 0;
-	while (fgets(buf, 255, FileSV) != NULL)
-	{
-		if ((strlen(buf)>0) && (buf[strlen(buf) - 1] == '\n'))
-			buf[strlen(buf) - 1] = '\n';
+	
+	//Doc MSSV
+	fwscanf(FileSV,L"%[^,],",SV.MSSV);
+	flagVitri = ftell(FileSV)+strlen(SV.MSSV)+1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
 
-	if ((FileSV = fopen("ThongTin.csv", "r")) == NULL) //Đọc file
-	{
-		printf("File could not be opened.\n");
-	}
-	tmp = strtok(NULL, ",");
-	SV.MSSV = tmp;
+	//Doc Ho ten
+	fwscanf(FileSV, L"%[^,],", SV.HoTen);
+	flagVitri = ftell(FileSV) + wcslen(SV.HoTen) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
+	
+	//Doc email
+	fwscanf(FileSV, L"%[^,],", SV.email);
+	flagVitri = ftell(FileSV) + wcslen(SV.email) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
 
-	tmp = strtok(NULL, ",");
-	SV.HoTen = tmp;
+	//Doc Khoa
+	fwscanf(FileSV, L"%[^,],", SV.Khoa);
+	flagVitri = ftell(FileSV) + wcslen(SV.Khoa) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
 
-	tmp = strtok(NULL, ",");
-	SV.Khoa = tmp;
+	//Doc Nam Hoc
+	fwscanf(FileSV, L"%[^,],", SV.NamHoc);
+	flagVitri = ftell(FileSV) + 4 + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
+	
+	//Doc Ngay Sinh
+	fwscanf(FileSV, L"%[^,],", SV.NgaySinh);
+	flagVitri = ftell(FileSV) + strlen(SV.NgaySinh) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
+	
+	//Doc Anh
+	fwscanf(FileSV, L"%[^,],", SV.Anh);
+	flagVitri = ftell(FileSV) + strlen(SV.Anh) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
+	
+	//Doc Ban Than
+	fwscanf(FileSV, L"%[^,],", SV.BanThan);
+	flagVitri = ftell(FileSV) + wcslen(SV.BanThan) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
+	
+	//Doc SoThich
+	fwscanf(FileSV, L"%[^\n]\n", SV.SoThich);
+	flagVitri = ftell(FileSV) + wcslen(SV.SoThich) + 1;
+	fseek(FileSV, flagVitri, SEEK_CUR);
 
-	tmp = strtok(buf, ",");
-	SV.NamHoc = tmp;
-
-
-	tmp = strtok(NULL, ",");
-	SV.NgaySinh = tmp;
-
-	tmp = strtok(NULL, ",");
-	SV.Anh = tmp;
-
-	tmp = strtok(NULL, ",");
-	for (j; strcpy(tmp, '\0') != 0; j++)
-	{
-		SV.SoThich[j] = tmp;
-	}
-	//tempStudent.ID = atoi(buf);
-
-	i++;
-	flag = -1;
-	}
-	//free(buf);
 	fclose(FileSV);
-		/*if (SV.MSSV != 0)
-			printf("MSSV: %s\n", SV.MSSV);
+		if (SV.MSSV != 0)
+		printf("MSSV: %s\n", SV.MSSV);
 		printf("Ho ten: %s\n", SV.HoTen);
 		printf("Khoa: %s\n", SV.Khoa);
+		printf("Email: %s\n", SV.email);
 		printf("Khoa' hoc: %d\n", SV.NamHoc);
 		printf("Ngay sinh: %s\n", SV.NgaySinh);
-		for (int k = 0; k<j; k++)
-			printf("So thich: %s\n", SV.SoThich);
-	}
-	return 0;*/
+		printf("So thich: %s\n", SV.SoThich);
+}
+
+void main()
+{
+	int flagVitri;
+	readSV(flagVitri);
+	system("pause");
 }

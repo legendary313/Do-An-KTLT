@@ -9,7 +9,7 @@
         <div class="Layout_container">
             <!-- Begin Layout Banner Region -->
             <div class="Layout_Banner" >
-                <div><img id="logo" src="Images/12345.jpg" height="105" /></div>
+                <div><img id="logo" src="Images/logo.jpg" height="105" /></div>
                 <div class="Header_Title">TRƯỜNG ÐẠI HỌC KHOA HỌC TỰ NHIÊN </div>
             </div>
             <!-- End Layout Banner Region -->
@@ -17,22 +17,22 @@
             <div class="Layout_MainContents">
                 <!-- Begin Below Banner Region -->
                 <div class="Personal_Main_Information">
-                    <!-- Begin Thông tin cá nhân của thầy cô ----------------------------------------------------------------------------------------- -->
+                    <!-- Begin Thông tin cá nhân của thầy cô ----------------------------------------------------------------------------------------->
                     <div class="Personal_Location">        
                         <img src="Images/LogoFooter.jpg" width="27" height="33" />
-                        <div class="Personal_FullName">HHuỳnh Chí Tuấn    </div>
- v>
+                        <div class="Personal_FullName">Dương Nguyên Trường Vỹ   </div>
+
                         <div class="Personal_Department">KHOA CÔNG NGHỆ THÔNG TIN</div>
                         <br />
                         <div class="Personal_Phone">
-                            Email: nvdhdhhhsasom
+                            Email: truongvy99413
                         </div>
                         <br />
                         <br />                   
                     </div>
-                    <!-- End Thông tin cá nhân của thầy cô ----------------------------------------------------------------------------------------- -->
+                    <!-- End Thông tin cá nhân của thầy cô ------------------------------------------------------------------------------------------>
                     <div class="Personal_HinhcanhanKhung">
-                        <img src="Images/1212123.jpg" class="Personal_Hinhcanhan" />
+                        <img src="Images/1712928.jpg" class="Personal_Hinhcanhan" />
                     </div>
                 </div>
                 <!-- End Below Banner Region -->
@@ -45,7 +45,7 @@
                         <div class="InfoGroup">Thông tin cá nhân</div>
                         <div>
                             <ul class="TextInList">
-                                <li>HỌ và tên: Dương Nguyên Trường Vỹ</li>
+                                <li>Họ và tên: Dương Nguyên Trường Vỹ</li>
                                 <li>MSSV: 1212928</li>
                                 <li>Sinh viên khoa Công nghệ thông tin</li>
                                 <li>Ngày sinh: 13/04/1999</li>
@@ -77,7 +77,7 @@
                     Ðồ án giữa kì</br>
                 Kĩ thuật lập trình</br>
                 TH2012/03</br>
-                MSSV - Tên sinh viên thực hiện</br>
+                1712928 - Dương Nguyên Trường Vỹ</br>
 				</center>
                 </div>
             </div>

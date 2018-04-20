@@ -1,0 +1,16 @@
+﻿Build started 4/21/2018 12:36:58 AM.
+     1>Project "C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\ProjectKTLT-1712928\ProjectKTLT-1712928.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _CRT_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\users\dell pro\desktop\doanktlt\do-an-ktlt\projectktlt-1712928\projectktlt-1712928\main.cpp(24): warning C4101: 'bufwchar' : unreferenced local variable
+     1>c:\users\dell pro\desktop\doanktlt\do-an-ktlt\projectktlt-1712928\projectktlt-1712928\main.cpp(25): warning C4101: 'bufchar' : unreferenced local variable
+     1>c:\users\dell pro\desktop\doanktlt\do-an-ktlt\projectktlt-1712928\projectktlt-1712928\main.cpp(87): warning C4715: 'readSV' : not all control paths return a value
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\Debug\ProjectKTLT-1712928.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\Debug\ProjectKTLT-1712928.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\Debug\ProjectKTLT-1712928.lib" /MACHINE:X86 Debug\main.obj
+         ProjectKTLT-1712928.vcxproj -> C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\Debug\ProjectKTLT-1712928.exe
+     1>Done Building Project "C:\Users\Dell Pro\Desktop\DoAnKTLT\Do-An-KTLT\ProjectKTLT-1712928\ProjectKTLT-1712928\ProjectKTLT-1712928.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.25
