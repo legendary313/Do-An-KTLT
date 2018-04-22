@@ -18,84 +18,114 @@ struct SinhVien
 };
 typedef SinhVien SV;
 
-int readSV(int &flagVitri)
+void XoaKep(wchar_t *a)
+{
+	int x = wcslen(a);
+	for (int i = 0; i < x; i++) 
+	{
+		if (a[i] == '\"')
+		{
+			for (int j = i; j < x; j++)
+			{
+				a[j] = a[j + 1];
+			}
+			a[x - 1] = '\0';
+		}
+	}
+}
+
+
+void readSV()
 {
 	_setmode(_fileno(stdout), _O_U16TEXT);  //needed for output
 	_setmode(_fileno(stdin), _O_U16TEXT); //needed for input
 	FILE *FileSV;
-	FileSV = _wfopen(L"ThongTin.csv", L"r,ccs=UTF-16LE");
+	FileSV = _wfopen(L"ThongTin.csv", L"r,ccs=UTF-8");
 	if (!FileSV) // check file
 	{
 		printf("File could not be opened.\n");
 		system("pause");
 	}
-	fseek(FileSV, 0, SEEK_END);
-	int FileLength = ftell(FileSV);
-	for (int i = 0; i <= FileLength; i++)
-	{ 
-		//chưa biết :)
+	// Dem so dong
+	wchar_t str[2400];
+	int i,dem=0;
+	
+	while (fgetws(str, 2400, FileSV) != NULL)
+	{
+		dem++;
 	}
-	SV SV;
-	fseek(FileSV, 0, SEEK_SET);
-	//Doc MSSV
-	fwscanf(FileSV, L"%[^,],", &SV.MSSV);
-	flagVitri = ftell(FileSV)+wcslen(SV.MSSV)-2;
-	fseek(FileSV, flagVitri, SEEK_SET);
+	// Doc Vao cac bien trong struct
+	SV SV[100];
+	rewind(FileSV);
+	wchar_t *token;
+	int sosothich[100];
+	for (i = 0; i <= dem; i++)
+	{
+		fgetws(str, 2400, FileSV);
+		//Doc MSSV
+		token = wcstok(str, L",");
+		XoaKep(token);
+		wcscpy(SV[i].MSSV, token);
+		//Doc Ho ten
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].HoTen, token);
+		//Doc email
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].email, token);
+		//Doc Khoa
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].Khoa, token);
 
-	//Doc Ho ten
-	fwscanf(FileSV, L"%[^,],", &SV.HoTen);
-	flagVitri = ftell(FileSV) + wcslen(SV.HoTen) +1;
-	fseek(FileSV, flagVitri, SEEK_SET);
-	
-	//Doc email
-	fwscanf(FileSV, L"%[^,],", &SV.email);
-	flagVitri = ftell(FileSV) + wcslen(SV.email) -5;
-	fseek(FileSV, flagVitri, SEEK_SET);
+		//Doc Nam Hoc
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].NamHoc, token);
 
-	//Doc Khoa
-	fwscanf(FileSV, L"%[^,],", &SV.Khoa);
-	flagVitri = ftell(FileSV) + wcslen(SV.Khoa) + 1;
-	fseek(FileSV, flagVitri, SEEK_SET);
+		//Doc Ngay Sinh
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].NgaySinh, token);
 
-	//Doc Nam Hoc
-	fwscanf(FileSV, L"%[^,],", &SV.NamHoc);
-	flagVitri = ftell(FileSV) + 5;
-	fseek(FileSV, flagVitri, SEEK_SET);
-	
-	//Doc Ngay Sinh
-	fwscanf(FileSV, L"%[^,],", &SV.NgaySinh);
-	flagVitri = ftell(FileSV) + wcslen(SV.NgaySinh) + 1;
-	fseek(FileSV, flagVitri, SEEK_SET);
-	
-	//Doc Anh
-	fwscanf(FileSV, L"%[^,],", &SV.Anh);
-	flagVitri = ftell(FileSV) + wcslen(SV.Anh) + 1;
-	fseek(FileSV, flagVitri, SEEK_SET);
-	
-	//Doc Ban Than
-	fwscanf(FileSV, L"%[^,],", &SV.BanThan);
-	flagVitri = ftell(FileSV) + wcslen(SV.BanThan) + 1;
-	fseek(FileSV, flagVitri, SEEK_SET);
-	
-	//Doc SoThich
-	fwscanf(FileSV, L"%[^\n]\n", &SV.SoThich);
-	flagVitri = ftell(FileSV) + wcslen(SV.SoThich) + 1;
-	fseek(FileSV, flagVitri, SEEK_SET);
+		//Doc Anh
+		token = wcstok(NULL, L",");
+		XoaKep(token);
+		wcscpy(SV[i].Anh, token);
 
+		//Doc Ban Than
+		token = wcstok(NULL, L"\"\"");
+		wcscpy(SV[i].BanThan, token);
+
+		//Doc SoThich
+		sosothich[i] = 0;
+		while (token != NULL)
+		{
+			sosothich[i]++;
+			if (sosothich[i] == 1)
+			{
+				token = wcstok(NULL, L",");
+				XoaKep(token); 
+				wcscpy(SV[i].SoThich, token);
+			}
+			token = wcstok(NULL, L"\0");
+		}
+		
+		wprintf(L"MSSV: %ls\n", SV[i].MSSV);
+		wprintf(L"Ho ten: %ls\n", SV[i].HoTen);
+		wprintf(L"Khoa: %ls\n", SV[i].Khoa);
+		wprintf(L"Email: %ls\n", SV[i].email);
+		wprintf(L"Khoa' hoc: %ls\n", SV[i].NamHoc);
+		wprintf(L"Anh: %ls\n", SV[i].Anh);
+		wprintf(L"Ngay sinh: %ls\n", SV[i].NgaySinh);
+		wprintf(L"Ban Than: %ls\n", SV[i].BanThan);
+		wprintf(L"So thich: %ls\n", SV[i].SoThich);
+	}
 	fclose(FileSV);
-	wprintf(L"MSSV: %ls\n", SV.MSSV);
-	wprintf(L"Ho ten: %ls\n", SV.HoTen);
-	wprintf(L"Khoa: %ls\n", SV.Khoa);
-	wprintf(L"Email: %ls\n", SV.email);
-	wprintf(L"Khoa' hoc: %ls\n", SV.NamHoc);
-	wprintf(L"Anh: %ls\n", SV.Anh);
-	wprintf(L"Ngay sinh: %ls\n", SV.NgaySinh);
-	wprintf(L"Ban Than: %ls\n", SV.BanThan);
-	wprintf(L"So thich: %ls\n", SV.SoThich);
-	return 0;
 }
 
-void html(SV SV)
+/*void html(SV SV)
 {
 	FILE *html;
 	wchar_t name[14];
@@ -110,7 +140,7 @@ void html(SV SV)
 	fwprintf(html,L"<head>");
 	fwprintf(html,L"<meta http - equiv = \"Content - Type\" content = \"text / html; charset = utf - 8\" / >");
 	fwprintf(html,L"<link rel = \"stylesheet\" type = \"text / css\" href = \"personal.css\" / >");
-	fwprintf(html,L"<title>0< / title>");
+	fwprintf(html, L"<title>HCMUS - DƯƠNG NGUYÊN TRƯỜNG VỸ< / title>");
 	fwprintf(html,L"< / head>");
 	fwprintf(html,L"<body>");
 	fwprintf(html,L"<div class = \"Layout_container\">");
@@ -131,7 +161,7 @@ void html(SV SV)
 	fwprintf(html, L"<div class = \"Personal_Department\">KHOA CÔNG NGHỆ THÔNG TIN< / div>");
 	fwprintf(html, L"<br / >");
 	fwprintf(html, L"<div class = \"Personal_Phone\">");
-	fwprintf(html, L"Email: truongvy99413");
+	fwprintf(html, L"Email: truongvy99413@mail.com");
 	fwprintf(html, L"< / div>");
 	fwprintf(html, L"<br / >");
 	fwprintf(html, L"<br / >");
@@ -188,12 +218,11 @@ void html(SV SV)
 	fwprintf(html, L"< / div>");
 	fwprintf(html, L"< / body>");
 	fwprintf(html, L"< / html>");
-}
+}*/
 
 void main()
 {
-	int flagVitri;
-	readSV(flagVitri);
+	readSV();
 	system("pause");
 }
 
